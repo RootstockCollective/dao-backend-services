@@ -5,13 +5,13 @@ import {
   ServerResponse, ServerResponseV2, TokenBalanceServerResponse,
   TokenInfoResponse,
   TokenServerResponse, TokenTransferApi, TransactionServerResponse,
-  TransactionsServerResponse, BlockscoutTransactionResponseTxResult
+  TransactionsServerResponse, BlockscoutTransactionResponseTxResult, TokenHoldersResponse
 } from './types'
 import {
   fromApiToInternalTransaction, fromApiToNft, fromApiToNftOwner, fromApiToRtbcBalance, fromApiToTEvents,
   fromApiToTokenWithBalance, fromApiToTokens, fromApiToTransaction
 } from './utils'
-import { GetEventLogsByAddressAndTopic0 } from '../service/address/AddressService'
+import { GetEventLogsByAddressAndTopic0, GetTokenHoldersByAddress } from '../service/address/AddressService'
 
 export class BlockscoutAPI extends DataSource {
   private chainId: number
@@ -168,5 +168,28 @@ export class BlockscoutAPI extends DataSource {
     return this.axios?.get<ServerResponse<TokenTransferApi>>(`${this.url}`, { params })
       .then(({ data }) => data.result)
       .catch(() => [])
+  }
+
+  async getTokenHoldersByAddress ({ address, nextPageParams }: GetTokenHoldersByAddress) {
+    try {
+      const url = `${this.url}/v2/tokens/${address}/holders`
+      const response = await this.axios?.get<ServerResponseV2<TokenHoldersResponse>>(url, { params: nextPageParams })
+      if (response?.status === 200) {
+        return response.data
+      }
+      return {
+        items: [],
+        next_page_params: null,
+        error: `Blockscout error with status ${response?.status}`
+      }
+    } catch (error) {
+      console.log(typeof error, error)
+      // @TODO handle error
+      return {
+        items: [],
+        next_page_params: null,
+        error: 'Blockscout error'
+      }
+    }
   }
 }
