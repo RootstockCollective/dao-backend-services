@@ -225,7 +225,7 @@ export class BlockscoutAPI extends DataSource {
         const nftHolders = transformResponseToNftHolder(response.data.items)
         return {
           // Reverse the array to show the holders starting from the first
-          items: nftHolders.reverse(),
+          items: nftHolders,
           next_page_params: response.data.next_page_params
         }
       }
