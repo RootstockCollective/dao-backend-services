@@ -13,6 +13,11 @@
 
 RIF Wallet Services is a server application that provides basic account querying API to bootstrap your app.
 
+## Deploymnets
+
+- Mainnet Deployment: [https://rws.app.rootstockcollective.xyz](https://rws.app.rootstockcollective.xyz)
+- Testnet Deployment: [https://dev.rws.app.rootstockcollective.xyz](https://dev.rws.app.rootstockcollective.xyz)
+
 ## Usage
 
 The API is as follows. Fin the response types in `src/types.ts`
