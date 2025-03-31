@@ -121,7 +121,7 @@ describe('coin market cap', () => {
 
       expect(res.body).toEqual({
         errors: [
-          'An address is invalid'
+          'The address is invalid'
         ]
       })
       expect(axiosMock.get).toHaveBeenCalledTimes(1)

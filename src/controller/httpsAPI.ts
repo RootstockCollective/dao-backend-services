@@ -9,7 +9,8 @@ import OpenApi from '../api/openapi'
 import BitcoinRouter from '../service/bitcoin/BitcoinRouter'
 import { ValidationError } from 'yup'
 import { AddressService } from '../service/address/AddressService'
-import { addressSchema, generateChainIdSchema, currencySchema, topicSchema } from '../util/schema'
+import { addressSchema, generateChainIdSchema, currencySchema, topicSchema, contractAddressSchema }
+  from '../util/schema'
 
 interface HttpsAPIDependencies {
   app: Express,
@@ -170,8 +171,12 @@ export class HttpsAPI {
       nextFunction: NextFunction) => {
         try {
           chainIdSchema.validateSync({ chainId })
-          addressSchema.validateSync({ address })
+          contractAddressSchema.validateSync({ address })
           topicSchema.validateSync({ topic0, topic1, topic01Opr })
+          const contract = await this.addressService.getAddress({ chainId: chainId as string, address })
+          if (!contract.error && !contract.is_contract) {
+            throw new ValidationError('Invalid contract address')
+          }
           const result = await this.addressService
             .getEventLogsByAddressAndTopic0({
               chainId: chainId as string,

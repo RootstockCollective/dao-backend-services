@@ -6,13 +6,14 @@ import {
   TokenInfoResponse,
   TokenServerResponse, TokenTransferApi, TransactionServerResponse,
   TransactionsServerResponse, BlockscoutTransactionResponseTxResult,
-  NftTokenHoldersResponse, TokenHoldersResponse
+  NftTokenHoldersResponse, TokenHoldersResponse, AddressResponse
 } from './types'
 import {
   fromApiToInternalTransaction, fromApiToNft, fromApiToNftOwner, fromApiToRtbcBalance, fromApiToTEvents,
   fromApiToTokenWithBalance, fromApiToTokens, fromApiToTransaction, transformResponseToNftHolder
 } from './utils'
 import {
+  GetAddress,
   GetEventLogsByAddressAndTopic0, GetNftHoldersData,
   GetTokenHoldersByAddress
 } from '../service/address/AddressService'
@@ -237,6 +238,23 @@ export class BlockscoutAPI extends DataSource {
     } catch (error) {
       console.error(typeof error, error)
       throw new Error(`Failed to get NFT holders data: ${error instanceof Error ? error.message : String(error)}`)
-    };
+    }
+  }
+
+  async getAddress ({ address }: Omit<GetAddress, 'chainId'>) {
+    const url = `${this.url}/v2/addresses/${address.toLowerCase()}`
+    try {
+      const response = await this.axios?.get<AddressResponse>(url)
+
+      if (response?.status === 200) {
+        return response.data
+      }
+      return {
+        error: `Blockscout error with status ${response?.status}`
+      }
+    } catch (error) {
+      console.error(typeof error, error)
+      throw new Error(`Failed to get Address data: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
 }

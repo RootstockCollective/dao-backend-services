@@ -15,7 +15,7 @@ describe('Schema validation', () => {
       if (expected) {
         expect(addressSchema.validateSync({ address })).toStrictEqual({ address: validAddress })
       } else {
-        expect(() => addressSchema.validateSync({ address })).toThrow('An address is invalid')
+        expect(() => addressSchema.validateSync({ address })).toThrow('The address is invalid')
       }
     }
   )

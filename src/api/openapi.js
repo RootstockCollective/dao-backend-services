@@ -1954,7 +1954,7 @@ module.exports = {
             type: 'array',
             items: {
               type: 'string',
-              example: 'An address is invalid'
+              example: 'The address is invalid'
             }
           }
         }
