@@ -248,23 +248,7 @@ NftTokenHoldersTransformedResponse[] =>
       owner: nft.owner.hash,
       ens_domain_name: nft.owner.ens_domain_name,
       id: nft.id,
-      image_url: changeUrlGateway(nft.image_url),
+      image_url: nft.media_url,
       metadata: nft.metadata
     }))
   )
-
-export const changeUrlGateway = (imageUrl: string | null) => {
-  const newBase = 'https://gateway.pinata.cloud'
-  if (!imageUrl) {
-    return imageUrl
-  }
-  if (imageUrl.startsWith('http')) {
-    const parsedUrl = new URL(imageUrl)
-    return `${newBase}${parsedUrl.pathname}`
-  }
-  if (imageUrl.startsWith('ipfs')) {
-    const parsedUrl = new URL(imageUrl)
-    return `${newBase}/${parsedUrl.host}${parsedUrl.pathname}`
-  }
-  return imageUrl
-}

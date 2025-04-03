@@ -301,6 +301,7 @@ export interface NftTokenHoldersResponse {
   external_app_url: string;
   id: string;
   image_url: string | null;
+  media_url: string | null;
   is_unique: string;
   metadata: {
         creator: string;
