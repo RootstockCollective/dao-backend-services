@@ -346,3 +346,31 @@ export interface TokenHoldersResponse {
   token_id: string;
   value: string;
 }
+
+export interface AddressResponse {
+  block_number_balance_updated_at: number
+  coin_balance: string
+  creation_transaction_hash: any
+  creator_address_hash: any
+  ens_domain_name: any
+  exchange_rate: any
+  has_beacon_chain_withdrawals: boolean
+  has_decompiled_code: boolean
+  has_logs: boolean
+  has_token_transfers: boolean
+  has_tokens: boolean
+  has_validated_blocks: boolean
+  hash: string
+  implementations: any[]
+  is_contract: boolean
+  is_scam: boolean
+  is_verified: boolean
+  metadata: any
+  name: any
+  private_tags: any[]
+  proxy_type: any
+  public_tags: any[]
+  token: any
+  watchlist_address_id: any
+  watchlist_names: any[]
+}

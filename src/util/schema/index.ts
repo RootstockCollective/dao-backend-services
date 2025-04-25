@@ -10,7 +10,13 @@ export const generateChainIdSchema = (keys: string[]) => object({
 })
 
 export const addressSchema = object({
-  address: string().required('An address is invalid')
+  address: string().required('The address is invalid')
+    .trim()
+    .transform(address => isAddress(address.toLowerCase()) ? address : '')
+}).required()
+
+export const contractAddressSchema = object({
+  address: string().required('Invalid contract address')
     .trim()
     .transform(address => isAddress(address.toLowerCase()) ? address : '')
 }).required()

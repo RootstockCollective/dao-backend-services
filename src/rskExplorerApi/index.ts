@@ -151,4 +151,8 @@ export class RSKExplorerAPI extends DataSource {
   getTokenHoldersByAddress () {
     throw new Error('Feature not supported')
   }
+
+  getAddress () {
+    throw new Error('Feature not supported')
+  }
 }

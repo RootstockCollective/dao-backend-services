@@ -2,6 +2,7 @@ import _axios from 'axios'
 import { ethers } from 'ethers'
 import BitcoinCore from '../service/bitcoin/BitcoinCore'
 import {
+  GetAddress,
   GetEventLogsByAddressAndTopic0, GetNftHoldersData,
   GetTokenHoldersByAddress
 } from '../service/address/AddressService'
@@ -36,6 +37,7 @@ export abstract class DataSource {
 
   abstract getNftInstancesByAddress({ address }: Omit<GetNftHoldersData, 'chainId'>);
   abstract getTokenHoldersByAddress({ address }: Omit<GetTokenHoldersByAddress, 'chainId'>)
+  abstract getAddress({ address }: Omit<GetAddress, 'chainId'>)
 }
 
 export type RSKDatasource = {
