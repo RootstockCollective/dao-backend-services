@@ -53,6 +53,7 @@ export class HttpsAPI {
       'https://testnet.app.rootstockcollective.xyz',
       'https://dev.app.rootstockcollective.xyz',
       'https://qa.cr.rootstockcollective.xyz',
+      'https://qa.dao.rootstockcollective.xyz',
       'https://staging.cr.rootstockcollective.xyz',
       'https://staging.app.rootstockcollective.xyz',
       'https://release-candidate.app.rootstockcollective.xyz'
