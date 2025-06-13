@@ -56,7 +56,8 @@ export class HttpsAPI {
       'https://qa.dao.rootstockcollective.xyz',
       'https://staging.cr.rootstockcollective.xyz',
       'https://staging.app.rootstockcollective.xyz',
-      'https://release-candidate.app.rootstockcollective.xyz'
+      'https://release-candidate-mainnet.app.rootstockcollective.xyz',
+      'https://release-candidate-testnet.app.rootstockcollective.xyz'
     ]
     this.app.use(cors({
       origin: (origin, callback) => {
