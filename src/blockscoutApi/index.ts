@@ -244,7 +244,9 @@ export class BlockscoutAPI extends DataSource {
   async getAddress ({ address }: Omit<GetAddress, 'chainId'>) {
     const url = `${this.url}/v2/addresses/${address.toLowerCase()}`
     try {
-      const response = await this.axios?.get<AddressResponse>(url)
+      const response = await this.axios?.get<AddressResponse>(url, {
+        validateStatus: (status) => status <= 500
+      })
 
       if (response?.status === 200) {
         return response.data
