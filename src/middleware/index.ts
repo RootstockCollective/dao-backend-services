@@ -8,7 +8,7 @@ export class CustomError extends Error {
   }
 }
 
-export const errorHandler: ErrorRequestHandler = (error, req, res) => {
+export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   const status = error.status || 500
   const message = error.message || 'Something went wrong'
   console.error(error)
