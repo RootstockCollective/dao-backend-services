@@ -38,8 +38,12 @@ export class HttpsAPI {
   handleValidationError (e, res: Response) : void {
     if (e instanceof ValidationError) {
       res.status(400).json({ errors: e.errors })
+    } else if (e instanceof Error) {
+      console.error({ name: e.name, message: e.message })
+      res.status(500).json({ error: 'Internal server error' })
     } else {
-      throw e
+      console.error('Unknown error')
+      res.status(500).json({ error: 'Internal server error' })
     }
   }
 
