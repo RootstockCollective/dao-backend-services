@@ -40,7 +40,9 @@ ingress:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:886436934082:certificate/bc74f95e-6ed5-4be2-bf1c-098cc0fe2821
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
     external-dns.alpha.kubernetes.io/hostname: dev-eks.rws.app.rootstockcollective.xyz
   hosts:
     - host: dev-eks.rws.app.rootstockcollective.xyz
