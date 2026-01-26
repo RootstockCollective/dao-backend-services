@@ -1,0 +1,57 @@
+replicaCount: 1
+
+image:
+  repository: 886436934082.dkr.ecr.us-east-1.amazonaws.com/rscoll-dev-rws-dev
+  pullPolicy: Always
+  tag: b7126ff8a2b9a2a791c81cba4cb7557dc80b86e9
+
+namespace: rws-dev
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1024Mi
+  limits:
+    cpu: 1000m
+    memory: 2048Mi
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 5
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:886436934082:certificate/bc74f95e-6ed5-4be2-bf1c-098cc0fe2821
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    external-dns.alpha.kubernetes.io/hostname: dev-eks.rws.app.rootstockcollective.xyz
+  hosts:
+    - host: dev-eks.rws.app.rootstockcollective.xyz
+      paths:
+        - path: /
+          pathType: Prefix
+
+externalSecrets:
+  enabled: true
+  serviceAccount: external-secrets
+  parameterPaths:
+    coinMarketCapKey: /rscoll-dev-coinmarketcap-key

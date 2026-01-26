@@ -1,0 +1,17 @@
+namespace: rws-dev
+
+image:
+  tag: b7126ff8a2b9a2a791c81cba4cb7557dc80b86e9
+
+ingress:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: dev-eks.rws.app.rootstockcollective.xyz
+  hosts:
+    - host: dev-eks.rws.app.rootstockcollective.xyz
+      paths:
+        - path: /
+          pathType: Prefix
+
+externalSecrets:
+  parameterPaths:
+    coinMarketCapKey: /rscoll-dev-coinmarketcap-key
